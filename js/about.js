@@ -15,9 +15,7 @@ if (user) {
 // Xử lý nút Đăng xuất
 navLogout.addEventListener("click", function (e) {
     e.preventDefault();
-    // Xóa dữ liệu người dùng
     localStorage.removeItem("currentUser");
 
-    // Chuyển về trang chủ hoặc reload
     window.location.href = "login.html";
 });
