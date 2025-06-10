@@ -57,16 +57,13 @@ if (!currentUser || !currentUser.email) {
 } else {
     const userEmail = currentUser.email;
 
-    // Lấy giỏ hàng từ localStorage
     const cartUser = JSON.parse(localStorage.getItem(userEmail)) || [];
 
-    // Lấy sản phẩm tương ứng
     const userProducts = cartUser.map(item => {
         const product = products.find(p => p.id === item.id);
         return product ? { ...product, quantity: item.quantity } : null;
-    }).filter(Boolean); // loại bỏ null
+    }).filter(Boolean);
 
-    // Render ra giỏ hàng
     renderCart(userProducts);
 }
 
@@ -115,7 +112,6 @@ function removeItem(id) {
     cart = cart.filter(item => item.id !== id);
     localStorage.setItem(userEmail, JSON.stringify(cart));
 
-    // Cập nhật lại giỏ hàng
     const updatedProducts = cart.map(item => {
         const product = products.find(p => p.id === item.id);
         return product ? { ...product, quantity: item.quantity } : null;
@@ -152,6 +148,22 @@ function updateItem(id) {
     }
 }
 
+document.getElementById("checkoutBtn").addEventListener("click", () => {
+    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+    if (!currentUser || !currentUser.email) return;
+
+    const userEmail = currentUser.email;
+
+    const confirmPay = confirm("Bạn có chắc chắn muốn thanh toán?");
+    if (!confirmPay) return;
+
+    localStorage.removeItem(userEmail);
+
+    renderCart([]);
+    alert("Thanh toán thành công! Cảm ơn bạn đã mua hàng.");
+});
+
+
 const user = localStorage.getItem("currentUser");
 
 const navLogin = document.getElementById("navLogin");
@@ -159,7 +171,6 @@ const navUser = document.getElementById("navUser");
 const navLogout = document.getElementById("navLogout");
 
 if (user) {
-    // Ẩn nút Đăng nhập, hiển thị thông tin người dùng và nút Đăng xuất
     navLogin.classList.add("d-none");
     navUser.classList.remove("d-none");
     navLogout.classList.remove("d-none");
@@ -169,10 +180,8 @@ if (user) {
 // Xử lý nút Đăng xuất
 navLogout.addEventListener("click", function (e) {
     e.preventDefault();
-    // Xóa dữ liệu người dùng
     localStorage.removeItem("currentUser");
 
-    // Chuyển về trang chủ hoặc reload
     window.location.href = "login.html";
 });
 

@@ -28,7 +28,7 @@ function renderProducts(containerId, productList) {
                     <h5 class="card-title">
                         <a href="product-detail.html?id=${p.id}" class="text-decoration-none text-success">${p.name}</a>
                     </h5>
-                    <p class="card-text text-success">${p.price.toLocaleString()} VND</p>
+                    <p class="card-text text-success">${p.price.toLocaleString()} VND/Kg</p>
                     <input type="number" id="${inputId}" min="1" value="1" class="form-control mb-2" />
                     <button class="btn btn-primary mt-auto" onclick="addToCart(${p.id}, '${inputId}')">
                         Thêm vào giỏ <i class='bx bxs-cart'></i>
@@ -74,7 +74,6 @@ function addToCart(productId, inputId) {
     localStorage.setItem(currentUser.email, JSON.stringify(cart));
     alert("Đã thêm vào giỏ hàng!");
 }
-// Giỏ hàng lưu ở localStorage
 
 const user = localStorage.getItem("currentUser");
 
@@ -83,7 +82,6 @@ const navUser = document.getElementById("navUser");
 const navLogout = document.getElementById("navLogout");
 
 if (user) {
-    // Ẩn nút Đăng nhập, hiển thị thông tin người dùng và nút Đăng xuất
     navLogin.classList.add("d-none");
     navUser.classList.remove("d-none");
     navLogout.classList.remove("d-none");
@@ -92,11 +90,9 @@ if (user) {
 
 // Xử lý nút Đăng xuất
 navLogout.addEventListener("click", function (e) {
-    e.preventDefault();
-    // Xóa dữ liệu người dùng
+    e.preventDefault();  
     localStorage.removeItem("currentUser");
 
-    // Chuyển về trang chủ hoặc reload
     window.location.href = "login.html";
 });
 

@@ -10,7 +10,6 @@ loginForm.addEventListener("submit", function (e) {
     const emailError = document.getElementById("emailError");
     const passwordError = document.getElementById("passwordError");
 
-    // Reset lỗi
     emailError.textContent = "";
     passwordError.textContent = "";
 
@@ -41,11 +40,10 @@ loginForm.addEventListener("submit", function (e) {
     if (user) {
         alert("Đăng nhập thành công!");
         localStorage.setItem("currentUser", JSON.stringify(user));
-        // Hiển thị tên user, ẩn nút đăng nhập
         document.getElementById("navLogin").classList.add("d-none");
         document.getElementById("navUser").classList.remove("d-none");
         document.getElementById("navUser").textContent = user.fullName || user.email;
-        window.location.href = "index.html"; // Chuyển về trang chủ
+        window.location.href = "index.html";
     } else {
         passwordError.textContent = "Email hoặc mật khẩu không đúng";
         passwordError.style.color = "red";

@@ -25,7 +25,7 @@ function renderProducts(containerId, productList) {
             <h5 class="card-title">
                 <a href="product-detail.html?id=${p.id}" class="text-decoration-none text-success">${p.name}</a>
             </h5>
-            <p class="card-text text-success">${p.price.toLocaleString()} VND</p>
+            <p class="card-text text-success">${p.price.toLocaleString()} VND/Kg</p>
             <input type="number" id="${inputId}" min="1" value="1" class="form-control mb-2" />
             <button class="btn btn-primary mt-auto" onclick="addToCart(${p.id}, '${inputId}')">
                 Thêm vào giỏ <i class='bx bxs-cart'></i>
